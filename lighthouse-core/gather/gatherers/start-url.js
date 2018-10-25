@@ -7,7 +7,8 @@
 
 const Gatherer = require('./gatherer');
 const manifestParser = require('../../lib/manifest-parser');
-const Driver = require('../driver.js'); // eslint-disable-line no-unused-vars
+
+/** @typedef {import('../driver.js')} Driver */
 
 class StartUrl extends Gatherer {
   /**
@@ -29,7 +30,7 @@ class StartUrl extends Gatherer {
 
         return this._attemptManifestFetch(passContext.driver, startUrlInfo.startUrl);
       }).catch(() => {
-        return {statusCode: -1, explanation: 'Unable to fetch start URL via service worker'};
+        return {statusCode: -1, explanation: 'Unable to fetch start URL via service worker.'};
       });
   }
 
@@ -43,9 +44,9 @@ class StartUrl extends Gatherer {
       const detailedMsg = manifest && manifest.warning;
 
       if (detailedMsg) {
-        return {isReadFailure: true, reason: `Error fetching web app manifest: ${detailedMsg}`};
+        return {isReadFailure: true, reason: `Error fetching web app manifest: ${detailedMsg}.`};
       } else {
-        return {isReadFailure: true, reason: `No usable web app manifest found on page`};
+        return {isReadFailure: true, reason: `No usable web app manifest found on page.`};
       }
     }
 
@@ -70,7 +71,7 @@ class StartUrl extends Gatherer {
     // Wait up to 3s to get a matched network request from the fetch() to work
     const timeoutPromise = new Promise(resolve =>
       setTimeout(
-        () => resolve({statusCode: -1, explanation: 'Timed out waiting for fetched start_url'}),
+        () => resolve({statusCode: -1, explanation: 'Timed out waiting for fetched start_url.'}),
         3000
       )
     );
@@ -88,7 +89,7 @@ class StartUrl extends Gatherer {
         if (!response.fromServiceWorker) {
           return resolve({
             statusCode: -1,
-            explanation: 'Unable to fetch start URL via service worker',
+            explanation: 'Unable to fetch start URL via service worker.',
           });
         }
         // Successful SW-served fetch of the start_URL
